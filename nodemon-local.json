@@ -1,0 +1,13 @@
+{
+    "watch": [
+        "src"
+    ],
+    "ext": "ts,graphql",
+    "ignore": [
+        "src/**/*.spec.ts"
+    ],
+    "legacyWatch": true,
+    "signal": "SIGINT",
+    "verbose": true,
+    "exec": "source .env && node --inspect=0.0.0.0:$PORT_DEBUG --nolazy -r ts-node/register -r dotenv/config src/bin/www"
+}
