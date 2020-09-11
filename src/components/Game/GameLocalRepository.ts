@@ -1,29 +1,32 @@
 import { Game, GameData } from './Game'
 import { GameRepositoryInterface } from './GameRepository'
+import { PlayerData } from '../Player'
 
 type GameRepository = Record<Game['id'], GameData>
 
 export class GameLocalRepository implements GameRepositoryInterface {
   constructor (private gameRepositoryLocal: GameRepository = {}) {
     this.gameRepositoryLocal = {
-      '0001': {
-        id: '0001',
-        players: ['Player1', 'Player2'],
-        board: '---00X--X',
-        multiPlayer: false
-      }
+      // '0001': {
+      //   id: '0001',
+      //   players: {},
+      //   board: '---00X--X',
+      //   multiPlayer: false
+      // }
     }
   }
 
   public async createGame (multiPlayer = false): Promise<GameData> {
     const newID = this.generateUUID()
-    const players: string[] = []
-    const board = ''
+    const players: Record<PlayerData['id'], PlayerData> = {}
+    const board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    const nextMove = ''
     const newGameData = {
       id: newID,
       players,
       board,
-      multiPlayer
+      multiPlayer,
+      nextMove
     }
 
     await this.addGameToRepository(newGameData)
@@ -38,6 +41,18 @@ export class GameLocalRepository implements GameRepositoryInterface {
     const gameData = await this.gameRepositoryLocal[id]
 
     return gameData
+  }
+
+  public async addPlayerToGame (id: GameData['id'], player: PlayerData, nextMove: GameData['nextMove']): Promise<GameData> {
+    this.gameRepositoryLocal[id].players[player.id] = player
+    this.gameRepositoryLocal[id].nextMove = nextMove
+    return await this.gameRepositoryLocal[id]
+  }
+
+  public async addMoveToGame (id: GameData['id'], data: GameData): Promise<GameData> {
+    this.gameRepositoryLocal[id].board = data.board
+    this.gameRepositoryLocal[id].nextMove = data.nextMove
+    return await this.gameRepositoryLocal[id]
   }
 
   private async addGameToRepository (data: GameData): Promise<GameRepository> {
