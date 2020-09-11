@@ -1,4 +1,5 @@
 import Controller from '../core/Controller'
+import { GameLocalRepository, GameController } from './Game'
 
 type Controllers = Record<string, Controller>
 
@@ -19,6 +20,18 @@ class Main implements MainInterface {
     // Connect to database: currently no database connection is needed
 
     // Instantiate all components and their relative routes
+
+    const gameRepository = new GameLocalRepository()
+    // const gameRepositoryMock = new GameRepositoryMock()
+    const gameController = new GameController(gameRepository)
+
+    this.controllers[gameController.getName()] = gameController
+
+    const newGame = await gameController.startNewGame(false)
+    console.info('created new game: ', newGame)
+
+    const getGame = await gameController.getGame(newGame.id)
+    console.info('get game: ', getGame, getGame.getId())
 
     console.info('Main Component initialised')
   }
