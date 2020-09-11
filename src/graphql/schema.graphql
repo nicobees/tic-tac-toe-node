@@ -1,0 +1,10 @@
+type Game {
+    id: String
+    players: [String]
+    board: String
+}
+
+type Query {
+    getGame(id: String): Game
+    getGameHistory: String
+}
