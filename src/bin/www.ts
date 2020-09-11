@@ -4,9 +4,9 @@ import { Application } from 'express'
 import app from '../app'
 import { onServerError } from '../utils'
 import { ServerConfig } from '../config'
+process.env.NODE_CONFIG_DIR = path.join(__dirname, '../config/')
 // eslint-disable-next-line import/first
 import config from 'config'
-process.env.NODE_CONFIG_DIR = path.join(__dirname, '../config/')
 
 // TODO #2 - implement Logger in order to use it also here if possible, instead of only writing to console output
 process.on('uncaughtException', e => {
@@ -21,7 +21,7 @@ process.on('unhandledRejection', e => {
 
 try {
   const envConfig = config.get<ServerConfig>('server')
-  console.info('app start: ', envConfig)
+
   app(envConfig)
     .then((app: Application) => {
       const server = http.createServer(app)
