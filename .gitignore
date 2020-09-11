@@ -1,0 +1,38 @@
+# File extensions to be ignored
+*.log
+
+logs
+# tmp
+
+# Custom
+!.gitkeep
+.DS_Store
+*~
+
+# API keys and secrets, dotenv environment variables files (ignored also in all subdirectories)
+*.env*
+
+# Dependency directory
+node_modules
+
+# Ignore built ts files
+dist/**/*
+
+# Coverage reports (by Jest testing tool)
+coverage
+
+# Editors
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+.idea
+*.iml
+
+# VS Code specific (settings, tasks and debugger launch configurations, and suggested extension will be revisioned in git)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# OS metadata
+.DS_Store
+Thumbs.db

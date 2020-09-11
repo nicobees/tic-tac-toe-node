@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    //"allowSyntheticDefaultImports": true,     // allows the syntax [import Package from 'package'] instead of [import * as Package from 'package']
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "typeRoots": [ // needed for the correct working of ts-node that does not use files, include or exclude options by default
+      "./node_modules/@types", // add here other paths that include types definition
+    ],
+    "strict": true, // activates all the strict properties under the strict section
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "src/types/*"
+      ]
+    },
+    "resolveJsonModule": true, // allow to import json as Typescript objects with syntax import Object from "settings.json",
+    "experimentalDecorators": true, // needed for TypeORM entity declaration
+    "emitDecoratorMetadata": true, // needed for TypeORM entity declaration
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
